@@ -1,0 +1,6 @@
+{
+  "name": "Hotel Management System",
+  "description": "A comprehensive, full-stack Hotel Management System built with Express and React, featuring room, guest, booking, billing, dining services, and a real-time analytics dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

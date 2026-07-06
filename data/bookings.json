@@ -1,0 +1,34 @@
+[
+  {
+    "id": "bk-1",
+    "guestId": "gst-3",
+    "roomId": "rm-103",
+    "checkInDate": "2026-07-06",
+    "checkOutDate": "2026-07-09",
+    "actualCheckIn": "2026-07-06T16:15:26.693Z",
+    "status": "CheckedIn",
+    "totalGuests": 2,
+    "createdAt": "2026-07-06T16:15:26.693Z"
+  },
+  {
+    "id": "bk-2",
+    "guestId": "gst-2",
+    "roomId": "rm-201",
+    "checkInDate": "2026-07-05",
+    "checkOutDate": "2026-07-08",
+    "actualCheckIn": "2026-07-05T16:15:26.693Z",
+    "status": "CheckedIn",
+    "totalGuests": 2,
+    "createdAt": "2026-07-06T16:15:26.694Z"
+  },
+  {
+    "id": "bk-3",
+    "guestId": "gst-1",
+    "roomId": "rm-101",
+    "checkInDate": "2026-07-10",
+    "checkOutDate": "2026-07-12",
+    "status": "Confirmed",
+    "totalGuests": 1,
+    "createdAt": "2026-07-06T16:15:26.694Z"
+  }
+]

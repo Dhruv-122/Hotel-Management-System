@@ -1,0 +1,82 @@
+[
+  {
+    "id": "rm-101",
+    "roomNumber": "101",
+    "type": "Single",
+    "capacity": 1,
+    "price": 1200,
+    "status": "Available"
+  },
+  {
+    "id": "rm-102",
+    "roomNumber": "102",
+    "type": "Single",
+    "capacity": 1,
+    "price": 1200,
+    "status": "Available"
+  },
+  {
+    "id": "rm-103",
+    "roomNumber": "103",
+    "type": "Double",
+    "capacity": 2,
+    "price": 2000,
+    "status": "Occupied"
+  },
+  {
+    "id": "rm-104",
+    "roomNumber": "104",
+    "type": "Double",
+    "capacity": 2,
+    "price": 2000,
+    "status": "Available"
+  },
+  {
+    "id": "rm-105",
+    "roomNumber": "105",
+    "type": "Deluxe",
+    "capacity": 2,
+    "price": 3500,
+    "status": "Available"
+  },
+  {
+    "id": "rm-201",
+    "roomNumber": "201",
+    "type": "Deluxe",
+    "capacity": 2,
+    "price": 3500,
+    "status": "Occupied"
+  },
+  {
+    "id": "rm-202",
+    "roomNumber": "202",
+    "type": "Suite",
+    "capacity": 4,
+    "price": 6000,
+    "status": "Available"
+  },
+  {
+    "id": "rm-203",
+    "roomNumber": "203",
+    "type": "Suite",
+    "capacity": 4,
+    "price": 6000,
+    "status": "Maintenance"
+  },
+  {
+    "id": "rm-204",
+    "roomNumber": "204",
+    "type": "Double",
+    "capacity": 2,
+    "price": 2000,
+    "status": "Available"
+  },
+  {
+    "id": "rm-205",
+    "roomNumber": "205",
+    "type": "Single",
+    "capacity": 1,
+    "price": 1200,
+    "status": "Available"
+  }
+]
