@@ -32,28 +32,29 @@ export default function Dining() {
     fetchDiningData();
   }, []);
 
+  async function fetchWithFallback<T>(apiUrl: string, fallbackUrl: string) {
+    const res = await fetch(apiUrl);
+    if (res.ok) return res.json() as Promise<T>;
+    const fallbackRes = await fetch(fallbackUrl);
+    if (!fallbackRes.ok) throw new Error("Failed to load fallback data");
+    return fallbackRes.json() as Promise<T>;
+  }
+
   const fetchDiningData = async () => {
     try {
       setLoading(true);
-      const [menuRes, ordersRes, bookingsRes] = await Promise.all([
-        fetch("/api/dining/menu"),
-        fetch("/api/dining/orders"),
-        fetch("/api/bookings"),
+      const [menuData, ordersData, bookingsData] = await Promise.all([
+        fetchWithFallback<MenuItem[]>("/api/dining/menu", "/data/menu.json"),
+        fetchWithFallback<any[]>("/api/dining/orders", "/data/orders.json"),
+        fetchWithFallback<any[]>("/api/bookings", "/data/bookings.json"),
       ]);
 
-      if (menuRes.ok && ordersRes.ok && bookingsRes.ok) {
-        setMenu(await menuRes.json());
-        setOrders(await ordersRes.json());
-        
-        // Filter bookings to only show CheckedIn guests for room service eligibility
-        const allBookings = await bookingsRes.json();
-        const activeOnly = allBookings.filter((b: any) => b.status === "CheckedIn");
-        setActiveBookings(activeOnly);
-      } else {
-        setError("Failed to fetch dining details");
-      }
+      setMenu(menuData);
+      setOrders(ordersData);
+      const activeOnly = bookingsData.filter((b: any) => b.status === "CheckedIn");
+      setActiveBookings(activeOnly);
     } catch (err) {
-      setError("Network error fetching dining catalog");
+      setError("Unable to load dining details; using offline backup data.");
     } finally {
       setLoading(false);
     }

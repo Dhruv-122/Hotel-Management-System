@@ -22,13 +22,5 @@
     "phone": "+91-9876543210",
     "idProof": "Aadhaar 1234-5678-9012",
     "createdAt": "2026-07-01T09:15:00.000Z"
-  },
-  {
-    "id": "gst-by7p3b8q6",
-    "name": "Het Patel",
-    "email": "het123@gmail.com",
-    "phone": "9658523684",
-    "idProof": "123456789258",
-    "createdAt": "2026-07-08T13:38:55.618Z"
   }
 ]

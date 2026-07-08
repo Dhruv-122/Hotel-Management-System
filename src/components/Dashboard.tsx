@@ -23,14 +23,23 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
   const [allBookings, setAllBookings] = useState<any[]>([]);
   const [invoices, setInvoices] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchDashboardData();
   }, []);
 
+  const loadJson = async (url: string) => {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Failed to load ${url}`);
+    return res.json();
+  };
+
+
   const fetchDashboardData = async () => {
     try {
       setLoading(true);
+      setError(null);
       const [statsRes, bookingsRes, roomsRes, invoicesRes] = await Promise.all([
         fetch("/api/dashboard"),
         fetch("/api/bookings"),
@@ -49,9 +58,38 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
         setRecentBookings(bookingsData.slice(0, 5)); // Get 5 most recent
         setRooms(roomsData);
         setInvoices(invoicesData);
+      } else {
+        throw new Error("API unavailable");
       }
     } catch (error) {
-      console.error("Error fetching dashboard data:", error);
+      try {
+        const [guestsData, bookingsData, roomsData, invoicesData] = await Promise.all([
+          loadJson("/data/guests.json"),
+          loadJson("/data/bookings.json"),
+          loadJson("/data/rooms.json"),
+          loadJson("/data/invoices.json"),
+        ]);
+
+        const statsData = {
+          totalRooms: roomsData.length,
+          availableRooms: roomsData.filter((r: Room) => r.status === "Available").length,
+          occupiedRooms: roomsData.filter((r: Room) => r.status === "Occupied").length,
+          maintenanceRooms: roomsData.filter((r: Room) => r.status === "Maintenance").length,
+          totalGuests: guestsData.length,
+          activeBookings: bookingsData.filter((b: any) => b.status === "CheckedIn" || b.status === "Confirmed").length,
+          totalRevenue: invoicesData.reduce((sum: number, inv: any) => sum + inv.totalAmount, 0),
+        };
+
+        setStats(statsData);
+        setAllBookings(bookingsData);
+        setRecentBookings(bookingsData.slice(0, 5));
+        setRooms(roomsData);
+        setInvoices(invoicesData);
+        setError("Unable to reach backend API; displaying offline dashboard data.");
+      } catch (fallbackError) {
+        console.error("Failed to load dashboard fallback data:", fallbackError);
+        setError("Unable to load dashboard data.");
+      }
     } finally {
       setLoading(false);
     }
@@ -145,6 +183,11 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
 
   return (
     <div className="space-y-8 animate-fade-in" id="dashboard-view">
+      {error && (
+        <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-sm font-medium">
+          {error}
+        </div>
+      )}
       {/* Upper Welcome Banner */}
       <div className="bg-gradient-to-r from-teal-700 to-teal-900 rounded-2xl p-6 text-white shadow-md flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>

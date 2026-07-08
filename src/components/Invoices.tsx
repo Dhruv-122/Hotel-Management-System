@@ -27,10 +27,21 @@ export default function Invoices() {
         const data = await res.json();
         setInvoices(data);
       } else {
-        setError("Failed to fetch historical invoice records");
+        throw new Error("API unavailable");
       }
     } catch (err) {
-      setError("Network error fetching invoices");
+      try {
+        const fallbackRes = await fetch("/data/invoices.json");
+        if (fallbackRes.ok) {
+          const data = await fallbackRes.json();
+          setInvoices(data);
+          setError("Unable to reach API backend; loaded offline invoice records.");
+        } else {
+          setError("Failed to fetch historical invoice records");
+        }
+      } catch (fallbackErr) {
+        setError("Network error fetching invoices");
+      }
     } finally {
       setLoading(false);
     }

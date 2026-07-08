@@ -1,0 +1,66 @@
+[
+  {
+    "id": "mn-1",
+    "name": "Masala Dosa",
+    "category": "Breakfast",
+    "price": 120,
+    "description": "Crispy south Indian crepe stuffed with spiced potato masala, served with sambar and chutneys.",
+    "isAvailable": true
+  },
+  {
+    "id": "mn-2",
+    "name": "Continental Breakfast Platter",
+    "category": "Breakfast",
+    "price": 250,
+    "description": "Toasted sliced bread, organic butter, jam, eggs of your choice, fresh fruit juice, and warm tea/coffee.",
+    "isAvailable": true
+  },
+  {
+    "id": "mn-3",
+    "name": "Paneer Butter Masala with Naan",
+    "category": "Lunch",
+    "price": 320,
+    "description": "Rich, velvety cottage cheese tomato gravy served with 2 freshly made tandoori butter naans.",
+    "isAvailable": true
+  },
+  {
+    "id": "mn-4",
+    "name": "Aromatic Chicken Biryani",
+    "category": "Lunch",
+    "price": 380,
+    "description": "Authentic dum biryani prepared with layered fragrant basmati rice, tender chicken, and spices, served with raita.",
+    "isAvailable": true
+  },
+  {
+    "id": "mn-5",
+    "name": "Slow-Cooked Dal Makhani & Rice",
+    "category": "Dinner",
+    "price": 280,
+    "description": "Creamy whole black lentils slow-cooked overnight with ghee and spices, paired with hot steamed cumin rice.",
+    "isAvailable": true
+  },
+  {
+    "id": "mn-6",
+    "name": "Zesty Fresh Lime Soda",
+    "category": "Beverage",
+    "price": 80,
+    "description": "Chilled sparkling refreshment with your choice of sweet, salted, or mixed lime flavor.",
+    "isAvailable": true
+  },
+  {
+    "id": "mn-7",
+    "name": "Traditional Masala Tea",
+    "category": "Beverage",
+    "price": 60,
+    "description": "Freshly brewed strong Indian tea flavored with ginger, cardamom, and aromatic spices.",
+    "isAvailable": true
+  },
+  {
+    "id": "mn-8",
+    "name": "Gulab Jamun (2pcs)",
+    "category": "Dessert",
+    "price": 90,
+    "description": "Golden fried soft milk dumplings soaked in a warm, sweet, cardamom-infused sugar syrup.",
+    "isAvailable": true
+  }
+]

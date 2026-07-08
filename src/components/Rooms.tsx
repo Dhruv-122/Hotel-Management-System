@@ -40,15 +40,35 @@ export default function Rooms() {
   const fetchRooms = async () => {
     try {
       setLoading(true);
+      setError(null);
       const res = await fetch("/api/rooms");
       if (res.ok) {
         const data = await res.json();
         setRooms(data);
       } else {
-        setError("Failed to fetch rooms list");
+        // Fallback to static data when the backend API is not deployed or unavailable.
+        const fallbackRes = await fetch("/data/rooms.json");
+        if (fallbackRes.ok) {
+          const fallbackData = await fallbackRes.json();
+          setRooms(fallbackData);
+          setError("Unable to reach API backend; loaded offline room data.");
+        } else {
+          setError("Failed to fetch rooms list");
+        }
       }
     } catch (err) {
-      setError("Network error fetching rooms");
+      try {
+        const fallbackRes = await fetch("/data/rooms.json");
+        if (fallbackRes.ok) {
+          const fallbackData = await fallbackRes.json();
+          setRooms(fallbackData);
+          setError("Unable to reach API backend; loaded offline room data.");
+        } else {
+          setError("Network error fetching rooms");
+        }
+      } catch (fallbackErr) {
+        setError("Network error fetching rooms");
+      }
     } finally {
       setLoading(false);
     }

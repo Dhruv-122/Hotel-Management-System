@@ -39,10 +39,21 @@ export default function Guests() {
         const data = await res.json();
         setGuests(data);
       } else {
-        setError("Failed to fetch guest list");
+        throw new Error("API unavailable");
       }
     } catch (err) {
-      setError("Network error fetching guest details");
+      try {
+        const fallbackRes = await fetch("/data/guests.json");
+        if (fallbackRes.ok) {
+          const data = await fallbackRes.json();
+          setGuests(data);
+          setError("Unable to reach API backend; loaded offline guest data.");
+        } else {
+          setError("Failed to fetch guest list");
+        }
+      } catch (fallbackErr) {
+        setError("Network error fetching guest details");
+      }
     } finally {
       setLoading(false);
     }

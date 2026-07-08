@@ -57,24 +57,28 @@ export default function Bookings() {
     fetchInitialData();
   }, []);
 
+  async function fetchWithFallback<T>(apiUrl: string, fallbackUrl: string) {
+    const res = await fetch(apiUrl);
+    if (res.ok) return res.json() as Promise<T>;
+    const fallbackRes = await fetch(fallbackUrl);
+    if (!fallbackRes.ok) throw new Error("Failed to load fallback data");
+    return fallbackRes.json() as Promise<T>;
+  }
+
   const fetchInitialData = async () => {
     try {
       setLoading(true);
-      const [bookingsRes, roomsRes, guestsRes] = await Promise.all([
-        fetch("/api/bookings"),
-        fetch("/api/rooms"),
-        fetch("/api/guests"),
+      const [bookingsData, roomsData, guestsData] = await Promise.all([
+        fetchWithFallback<any[]>("/api/bookings", "/data/bookings.json"),
+        fetchWithFallback<Room[]>("/api/rooms", "/data/rooms.json"),
+        fetchWithFallback<Guest[]>("/api/guests", "/data/guests.json"),
       ]);
 
-      if (bookingsRes.ok && roomsRes.ok && guestsRes.ok) {
-        setBookings(await bookingsRes.json());
-        setRooms(await roomsRes.json());
-        setGuests(await guestsRes.json());
-      } else {
-        setError("Failed to load reservation registry");
-      }
+      setBookings(bookingsData);
+      setRooms(roomsData);
+      setGuests(guestsData);
     } catch (err) {
-      setError("Network error loading bookings");
+      setError("Unable to load reservation registry; using offline backup data.");
     } finally {
       setLoading(false);
     }

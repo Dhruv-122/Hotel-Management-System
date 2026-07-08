@@ -78,13 +78,5 @@
     "capacity": 1,
     "price": 1200,
     "status": "Available"
-  },
-  {
-    "id": "rm-h8bgsgmmt",
-    "roomNumber": "106",
-    "type": "Single",
-    "capacity": 1,
-    "price": 1200,
-    "status": "Available"
   }
 ]
